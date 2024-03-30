@@ -120,5 +120,13 @@
         ];
       };
     };
+
+    rbw = {
+      enable = true;
+      # options = {
+      #   email = "winetree94@gmail.com";
+      #   base_url = "vaultwarden.winetree94.com";
+      # };
+    };
   };
 }
