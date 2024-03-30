@@ -18,7 +18,9 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    # pkgs.tmux
     pkgs.neovim
+    pkgs.btop
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -72,5 +74,40 @@
   };
 
   # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  # programs.home-manager.enable = true;
+
+  # enable git
+  # programs.git.enable = true;
+
+  # enable zsh
+  programs = {
+    tmux = {
+      enable = true;
+    };
+    home-manager = {
+      enable = true;
+    };
+    git = {
+      enable = true;
+      userName = "winetree94";
+      userEmail = "winetree94@gmail.com";
+    };
+    zsh = {
+    enable = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+        oh-my-zsh = {
+        enable = true;
+        theme = "robbyrussell";
+        plugins = [
+          "git"
+          "npm"
+          "history"
+          "node"
+          "rust"
+          "deno"
+        ];
+      };
+    };
+  };
 }
