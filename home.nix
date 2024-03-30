@@ -21,6 +21,7 @@
     # pkgs.tmux
     pkgs.neovim
     pkgs.btop
+    pkgs.fzf
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -81,17 +82,21 @@
 
   # enable zsh
   programs = {
-    tmux = {
-      enable = true;
-    };
+
     home-manager = {
       enable = true;
     };
+
+    tmux = {
+      enable = true;
+    };
+
     git = {
       enable = true;
       userName = "winetree94";
       userEmail = "winetree94@gmail.com";
     };
+
     zsh = {
     enable = true;
       autosuggestion.enable = true;
@@ -102,10 +107,16 @@
         plugins = [
           "git"
           "npm"
+          "yarn"
           "history"
           "node"
-          "rust"
-          "deno"
+          "systemd"
+          "multipass"
+          "brew"
+          # "docker"
+          # "docker-compose"
+          "sudo"
+          "zsh-interactive-cd"
         ];
       };
     };
