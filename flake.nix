@@ -13,7 +13,7 @@
 
   outputs = { nixpkgs, flake-utils, home-manager, ... }:
     let
-      system = "aarch64-linux";
+      system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       homeConfigurations."winetree94" = home-manager.lib.homeManagerConfiguration {
