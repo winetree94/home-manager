@@ -9,6 +9,8 @@ let
       ref = ref;
     };
   };
+
+  sum = x: y: x + y;
 in
 {
   home = {
@@ -128,6 +130,10 @@ in
         # gruvbox-material
         # mini-nvim
         # (fromGitHub "HEAD" "elihunter173/dirbuf.nvim")
+        # (fromGitHub {
+        #   repo = "winetree94/nvim";
+        #   ref = "main";
+        # })
       ];
     };
 
