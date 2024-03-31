@@ -4,27 +4,47 @@
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    nixos-flake.url = "github:srid/nixos-flake";
   };
 
-  outputs = { nixpkgs, flake-utils, home-manager, ... }:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      homeConfigurations."winetree94" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+  outputs = inputs@{ self, ... }:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
 
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [ ./home.nix ];
+      imports = [
+        inputs.nixos-flake.flakeModule
+      ];
 
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
+      perSystem = { pkgs, ... }:
+        let
+          # TODO: Change username
+          myUserName = "winetree94";
+        in
+        {
+          legacyPackages.homeConfigurations.${myUserName} =
+            self.nixos-flake.lib.mkHomeConfiguration
+              pkgs
+              ({ pkgs, ... }: {
+                imports = [ self.homeModules.default ];
+                home.username = myUserName;
+                home.homeDirectory = "/${if pkgs.stdenv.isDarwin then "Users" else "home"}/${myUserName}";
+                # home.stateVersion = "22.11";
+              });
+        };
+
+      flake = {
+        # home.nix 파일로 분리된 home-manager 구성을 여기에 불러옵니다.
+        homeModules.default = import ./home.nix;
       };
     };
 }
