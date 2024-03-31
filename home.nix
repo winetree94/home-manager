@@ -33,6 +33,7 @@ in
     fzf
     direnv
     lunarvim
+    git-crypt
 
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
@@ -152,10 +153,12 @@ in
 
     rbw = {
       enable = true;
-      # options = {
-      #   email = "winetree94@gmail.com";
-      #   base_url = "vaultwarden.winetree94.com";
-      # };
+      settings = {
+        email = "winetree94@gmail.com";
+        base_url = "https://vaultwarden.winetree94.com";
+        identity_url = "https://vaultwarden.winetree94.com/identity";
+        pinentry = pkgs.pinentry;
+      };
     };
   };
 }
