@@ -34,6 +34,7 @@ in
     direnv
     lunarvim
     git-crypt
+    nil
 
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
@@ -157,7 +158,7 @@ in
         email = "winetree94@gmail.com";
         base_url = "https://vaultwarden.winetree94.com";
         identity_url = "https://vaultwarden.winetree94.com/identity";
-        pinentry = pkgs.pinentry;
+        pinentry = pkgs.pinentry-tty;
       };
     };
   };
