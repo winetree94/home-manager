@@ -23,6 +23,7 @@
     pkgs.btop
     pkgs.fzf
     pkgs.direnv
+
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -39,6 +40,8 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+    pkgs.yarn-berry
+    pkgs.nodejs
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -76,16 +79,15 @@
   };
 
   # Let Home Manager install and manage itself.
-  # programs.home-manager.enable = true;
-
-  # enable git
-  # programs.git.enable = true;
-
-  # enable zsh
   programs = {
 
     home-manager = {
       enable = true;
+    };
+
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
     };
 
     tmux = {
@@ -99,10 +101,10 @@
     };
 
     zsh = {
-    enable = true;
+      enable = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
-        oh-my-zsh = {
+      oh-my-zsh = {
         enable = true;
         theme = "robbyrussell";
         plugins = [
