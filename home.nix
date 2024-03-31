@@ -1,5 +1,15 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
+let
+  fromGitHub = ref: repo: pkgs.vimUtils.buildVimPlugin {
+    pname = "${lib.strings.sanitizeDerivationName repo}";
+    version = ref;
+    src = builtins.fetchGit {
+      url = "https://github.com/${repo}.git";
+      ref = ref;
+    };
+  };
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -17,12 +27,12 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
+  home.packages = with pkgs; [
     # pkgs.tmux
-    pkgs.neovim
-    pkgs.btop
-    pkgs.fzf
-    pkgs.direnv
+    btop
+    fzf
+    direnv
+    lunarvim
 
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
@@ -40,8 +50,8 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-    pkgs.yarn-berry
-    pkgs.nodejs
+    yarn-berry
+    nodejs
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -98,6 +108,22 @@
       enable = true;
       userName = "winetree94";
       userEmail = "winetree94@gmail.com";
+    };
+
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+      plugins = with pkgs.vimPlugins; [
+        # nvim-lspconfig
+        # nvim-treesitter.withAllGrammars
+        # plenary-nvim
+        # gruvbox-material
+        # mini-nvim
+        # (fromGitHub "HEAD" "elihunter173/dirbuf.nvim")
+      ];
     };
 
     zsh = {
