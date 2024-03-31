@@ -15,8 +15,10 @@
   outputs = inputs@{ self, ... }:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
+        # linux
         "x86_64-linux"
         "aarch64-linux"
+        # mac
         "aarch64-darwin"
         "x86_64-darwin"
       ];
@@ -25,7 +27,7 @@
         inputs.nixos-flake.flakeModule
       ];
 
-      perSystem = { pkgs, ... }:
+      perSystem = { self', pkgs, ... }:
         let
           # TODO: Change username
           myUserName = "winetree94";
@@ -40,7 +42,16 @@
                 home.homeDirectory = "/${if pkgs.stdenv.isDarwin then "Users" else "home"}/${myUserName}";
                 # home.stateVersion = "22.11";
               });
+
+          # Enables 'nix run' to activate.
+          apps.default.program = self'.packages.activate-home;
+
+          # Enable 'nix build' to build the home configuration, but without
+          # activating.
+          # TODO
+          packages.default = self'.legacyPackages.homeConfigurations.${self.nix-dev-home.username}.activationPackage;
         };
+
 
       flake = {
         # home.nix 파일로 분리된 home-manager 구성을 여기에 불러옵니다.
