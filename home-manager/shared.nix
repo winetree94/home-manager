@@ -1,3 +1,5 @@
+# Add your reusable home-manager modules to this directory, on their own file (https://nixos.wiki/wiki/Module).
+# These should be stuff you would like to share with others, not your personal configurations.
 { config, pkgs, lib, ... }:
 
 let
@@ -20,8 +22,9 @@ in
   home = {
     # Home Manager needs a bit of information about you and the paths it should
     # manage.
-    username = "parkhansol";
-    homeDirectory = "/Users/parkhansol";
+    # username = "parkhansol";
+    # homeDirectory = "/Users/parkhansol";
+    # homeDirectory = "/${if pkgs.stdenv.isDarwin then "Users" else "home"}/${myUserName}";
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
