@@ -16,8 +16,8 @@ in
   home = {
     # Home Manager needs a bit of information about you and the paths it should
     # manage.
-    username = "winetree94";
-    homeDirectory = "/home/winetree94";
+    # username = "winetree94";
+    # homeDirectory = "/home/winetree94";
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
