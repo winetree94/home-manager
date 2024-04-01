@@ -77,6 +77,14 @@
           ./home-manager/winetree94-uconsole.nix
         ];
       };
+      "winetree94@wsl" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./home-manager/shared.nix
+          ./home-manager/winetree94-wsl.nix
+        ];
+      };
     };
   };
 }
