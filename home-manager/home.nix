@@ -14,14 +14,14 @@ let
 in
 {
   imports = [
-    ./programs/tmux/tmux.nix
+    ../programs/tmux/tmux.nix
   ];  
 
   home = {
     # Home Manager needs a bit of information about you and the paths it should
     # manage.
-    # username = "winetree94";
-    # homeDirectory = "/home/winetree94";
+    username = "parkhansol";
+    homeDirectory = "/Users/parkhansol";
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release

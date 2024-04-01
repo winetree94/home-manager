@@ -12,48 +12,66 @@
     nixos-flake.url = "github:srid/nixos-flake";
   };
 
-  outputs = inputs@{ self, ... }:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [
-        # linux
-        "x86_64-linux"
-        "aarch64-linux"
-        # mac
-        "aarch64-darwin"
-        "x86_64-darwin"
-      ];
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    ...
+  } @ inputs: let
+    inherit (self) outputs;
+    # Supported systems for your flake packages, shell, etc.
+    systems = [
+      "aarch64-linux"
+      "i686-linux"
+      "x86_64-linux"
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
+    # This is a function that generates an attribute by calling a function you
+    # pass to it, with each system as an argument
+    forAllSystems = nixpkgs.lib.genAttrs systems;
+  in {
+    # Your custom packages
+    # Accessible through 'nix build', 'nix shell', etc
+    packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+    # Formatter for your nix files, available through 'nix fmt'
+    # Other options beside 'alejandra' include 'nixpkgs-fmt'
+    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
-      imports = [
-        inputs.nixos-flake.flakeModule
-      ];
+    # Your custom packages and modifications, exported as overlays
+    overlays = import ./overlays {inherit inputs;};
+    # Reusable nixos modules you might want to export
+    # These are usually stuff you would upstream into nixpkgs
+    # nixosModules = import ./modules/nixos;
+    # Reusable home-manager modules you might want to export
+    # These are usually stuff you would upstream into home-manager
+    homeManagerModules = import ./modules/home-manager;
 
-      perSystem = { self', pkgs, ... }:
-        let
-          # TODO: Change username
-          myUserName = "parkhansol";
-        in
-        {
-          legacyPackages.homeConfigurations.${myUserName} =
-            self.nixos-flake.lib.mkHomeConfiguration
-              pkgs
-              ({ pkgs, ... }: {
-                imports = [ self.homeModules.default ];
-                home.username = myUserName;
-                home.homeDirectory = "/${if pkgs.stdenv.isDarwin then "Users" else "home"}/${myUserName}";
-                # home.stateVersion = "22.11";
-              });
+    # NixOS configuration entrypoint
+    # Available through 'nixos-rebuild --flake .#your-hostname'
+    # nixosConfigurations = {
+    #   # FIXME replace with your hostname
+    #   your-hostname = nixpkgs.lib.nixosSystem {
+    #     specialArgs = {inherit inputs outputs;};
+    #     modules = [
+    #       # > Our main nixos configuration file <
+    #       ./nixos/configuration.nix
+    #     ];
+    #   };
+    # };
 
-          # Enables 'nix run' to activate.
-          apps.default.program = self'.packages.activate-home;
-
-          # Enable 'nix build' to build the home configuration, but without
-          # activating.
-          # TODO
-          # packages.default = self'.legacyPackages.homeConfigurations.${self.nix-dev-home.username}.activationPackage;
-        };
-      flake = {
-        # home.nix 파일로 분리된 home-manager 구성을 여기에 불러옵니다.
-        homeModules.default = import ./home.nix;
+    # Standalone home-manager configuration entrypoint
+    # Available through 'home-manager --flake .#your-username@your-hostname'
+    homeConfigurations = {
+      # FIXME replace with your username@hostname
+      "parkhansol@FE-Ila-Park-2.local" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.aarch64-darwin; # Home-manager requires 'pkgs' instance
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          # > Our main home-manager configuration file <
+          ./home-manager/home.nix
+        ];
       };
     };
+  };
 }
