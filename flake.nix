@@ -30,7 +30,7 @@
       perSystem = { self', pkgs, ... }:
         let
           # TODO: Change username
-          myUserName = "winetree94";
+          myUserName = "parkhansol";
         in
         {
           legacyPackages.homeConfigurations.${myUserName} =
@@ -49,10 +49,8 @@
           # Enable 'nix build' to build the home configuration, but without
           # activating.
           # TODO
-          packages.default = self'.legacyPackages.homeConfigurations.${self.nix-dev-home.username}.activationPackage;
+          # packages.default = self'.legacyPackages.homeConfigurations.${self.nix-dev-home.username}.activationPackage;
         };
-
-
       flake = {
         # home.nix 파일로 분리된 home-manager 구성을 여기에 불러옵니다.
         homeModules.default = import ./home.nix;

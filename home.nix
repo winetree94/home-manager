@@ -13,6 +13,10 @@ let
   sum = x: y: x + y;
 in
 {
+  imports = [
+    ./programs/tmux/tmux.nix
+  ];  
+
   home = {
     # Home Manager needs a bit of information about you and the paths it should
     # manage.
@@ -38,6 +42,9 @@ in
       lunarvim
       git-crypt
       nil
+
+      # rust
+      cargo
 
       # # Adds the 'hello' command to your environment. It prints a friendly
       # # "Hello, world!" when run.
