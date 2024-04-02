@@ -16,7 +16,7 @@ let
 in
 {
   imports = [
-    ../programs/tmux
+    ../programs/tmux/legacy.nix
     ../programs/git
     ../programs/zsh
     ../programs/rbw
