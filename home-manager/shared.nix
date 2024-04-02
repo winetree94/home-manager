@@ -16,7 +16,11 @@ let
 in
 {
   imports = [
-    ../programs/tmux/tmux.nix
+    ../programs/tmux
+    ../programs/git
+    ../programs/zsh
+    ../programs/rbw
+    ../programs/neovim
   ];  
 
   home = {
@@ -38,21 +42,8 @@ in
     # The home.packages option allows you to install Nix packages into your
     # environment.
     packages = with pkgs; [
-      # pkgs.tmux
-      btop
-      fzf
       direnv
-      lunarvim
-      git-crypt
       nil
-
-      # rust
-      cargo
-
-      ripgrep
-      lazygit
-      gdu
-      bottom
 
       # # Adds the 'hello' command to your environment. It prints a friendly
       # # "Hello, world!" when run.
@@ -112,7 +103,6 @@ in
 
   # Let Home Manager install and manage itself.
   programs = {
-
     home-manager = {
       enable = true;
     };
@@ -120,70 +110,6 @@ in
     direnv = {
       enable = true;
       nix-direnv.enable = true;
-    };
-
-    tmux = {
-      enable = true;
-    };
-
-    git = {
-      enable = true;
-      userName = "winetree94";
-      userEmail = "winetree94@gmail.com";
-    };
-
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      viAlias = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-      plugins = with pkgs.vimPlugins; [
-        # nvim-lspconfig
-        # nvim-treesitter.withAllGrammars
-        # plenary-nvim
-        # gruvbox-material
-        # mini-nvim
-        # (fromGitHub "HEAD" "elihunter173/dirbuf.nvim")
-        # (fromGitHub {
-        #   repo = "winetree94/nvim";
-        #   ref = "main";
-        # })
-      ];
-    };
-
-    zsh = {
-      enable = true;
-      autosuggestion.enable = true;
-      syntaxHighlighting.enable = true;
-      oh-my-zsh = {
-        enable = true;
-        theme = "robbyrussell";
-        plugins = [
-          "git"
-          "npm"
-          "yarn"
-          "history"
-          "node"
-          "systemd"
-          "multipass"
-          "brew"
-          # "docker"
-          # "docker-compose"
-          "sudo"
-          "zsh-interactive-cd"
-        ];
-      };
-    };
-
-    rbw = {
-      enable = true;
-      settings = {
-        email = "winetree94@gmail.com";
-        base_url = "https://vaultwarden.winetree94.com";
-        identity_url = "https://vaultwarden.winetree94.com/identity";
-        pinentry = pkgs.pinentry-tty;
-      };
     };
   };
 }
