@@ -21,6 +21,7 @@ in
     ../programs/zsh
     ../programs/rbw
     ../programs/neovim
+    ../programs/node
   ];  
 
   home = {
@@ -61,8 +62,6 @@ in
       # (pkgs.writeShellScriptBin "my-hello" ''
       #   echo "Hello, ${config.home.username}!"
       # '')
-      yarn-berry
-      nodejs
     ];
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -96,7 +95,7 @@ in
     #  /etc/profiles/per-user/winetree94/etc/profile.d/hm-session-vars.sh
     #
     sessionVariables = {
-      # EDITOR = "emacs";
+      # EDITOR = "vi";
     };
 
   };
