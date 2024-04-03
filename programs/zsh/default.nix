@@ -25,7 +25,7 @@
         # "docker"
         # "docker-compose"
         "sudo"
-        "zoxide"
+        # "zoxide"
         "zsh-interactive-cd"
         "colored-man-pages"
         "fancy-ctrl-z"
