@@ -22,7 +22,6 @@ in
     ../programs/rbw
     ../programs/neovim
     ../programs/node
-    ../programs/ssh
   ];
 
   home = {
@@ -46,7 +45,8 @@ in
     packages = with pkgs; [
       direnv
       nil
-
+      unzip
+      bitwarden-cli
       # # Adds the 'hello' command to your environment. It prints a friendly
       # # "Hello, world!" when run.
       # pkgs.hello
