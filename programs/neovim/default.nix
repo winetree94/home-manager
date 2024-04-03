@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
+let
+
+in
 {
   home.packages = with pkgs; [
     btop
@@ -19,6 +22,10 @@
     vimAlias = true;
     vimdiffAlias = true;
     plugins = with pkgs.vimPlugins; [
+      # (fromGitHub {
+      #   repo = "NvChad/NvChad";
+      #   ref = "v2.5";
+      # })
       # nvim-lspconfig
       # nvim-treesitter.withAllGrammars
       # plenary-nvim
