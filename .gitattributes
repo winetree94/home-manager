@@ -1,6 +1,6 @@
 test.md filter=git-crypt diff=git-crypt
 
-programs/ssh/keys/winetree94.key filter=git-crypt diff=git-crypt
-programs/ssh/keys/winetree94.pub filter=git-crypt diff=git-crypt
-programs/ssh/keys/swit_ila.key filter=git-crypt diff=git-crypt
-programs/ssh/keys/swit_ila.pub filter=git-crypt diff=git-crypt
+programs/ssh/configs/winetree94.key filter=git-crypt diff=git-crypt
+programs/ssh/configs/winetree94.pub filter=git-crypt diff=git-crypt
+programs/ssh/configs/swit_ila.key filter=git-crypt diff=git-crypt
+programs/ssh/configs/swit_ila.pub filter=git-crypt diff=git-crypt
