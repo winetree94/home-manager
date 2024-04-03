@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 let
 
@@ -16,10 +16,17 @@ in
     bottom
   ];
 
-  # home.file."./.config/nvim/" = {
+  # home.file."./.config/nvim" = {
   #   source = ../../dotfiles/nvim;
   #   recursive = true;
   # };
+
+  # home.file."./.config/nvim" = {
+  #   source = config.lib.file.mkOutOfStoreSymlink ../../dotfiles/nvim;
+  #   recursive = true;
+  # };
+
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
