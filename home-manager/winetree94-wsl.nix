@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../programs/ssh
+    # ../programs/ssh
   ];
   home = {
     username = "winetree94";
