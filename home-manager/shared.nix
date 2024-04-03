@@ -22,7 +22,8 @@ in
     ../programs/rbw
     ../programs/neovim
     ../programs/node
-  ];  
+    ../programs/ssh
+  ];
 
   home = {
     # Home Manager needs a bit of information about you and the paths it should
