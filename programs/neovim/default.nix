@@ -5,6 +5,7 @@ let
 in
 {
   home.packages = with pkgs; [
+    # neovim
     btop
     fzf
     cargo
@@ -15,6 +16,10 @@ in
     bottom
   ];
 
+  # home.file."./.config/nvim/" = {
+  #   source = ../../dotfiles/nvim;
+  #   recursive = true;
+  # };
   programs.neovim = {
     enable = true;
     defaultEditor = true;
